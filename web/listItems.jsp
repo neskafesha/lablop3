@@ -19,7 +19,7 @@
         <a class="navbar-brand" href="#">Contact List</a>
         <ul class="nav navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="index.jsp">Main</a>
+                <a class="nav-link" href="main.jsp">Main</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="listItems.jsp">Contact List<span class="sr-only">(current)</span></a>

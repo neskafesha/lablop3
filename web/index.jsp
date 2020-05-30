@@ -1,38 +1,74 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Vasiliy
-  Date: 30.05.2020
-  Time: 16:05
-  To change this template use File | Settings | File Templates.
---%>
-<link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap.min.css">
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html lang="en">
-<meta charset="UTF-8">
-<body>
 
+<link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap.min.css">
+<%@ page import="java.sql.Connection,java.sql.DriverManager" %>
+<%@ page import="java.sql.Statement" %>
+<%@ page import="javax.swing.*" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="main.servlet.User" %>
+<%
+    String login = request.getParameter("login");
+    String password = request.getParameter("password");
+
+    String dbName = "mysql";
+    String dbUser = "root";
+    String dbPassword = "123456789";
+
+    String success = "alert alert-danger";
+    String successText = "";
+
+    ResultSet resultSet;
+    Statement statement;
+
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + "?allowPublicKeyRetrieval=true&useSSL=false", dbUser, dbPassword);
+        statement = connect.createStatement();
+        resultSet = statement.executeQuery("SELECT * FROM users WHERE login = '" + login + "' and password = '" + password + "'");
+        if (resultSet.first() == true) {
+            User user = new User();
+            user.setUser(login);
+            user.setPassword(password);
+            response.sendRedirect(request.getContextPath() + "/main.jsp");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+        }
+        successText = "Bad login or password";
+    } catch (Exception e) {
+
+        successText = "Bad login or password";
+        e.printStackTrace();
+    }%>
+<body>
+<body>
 <div class="wrapper container">
     <header><nav class="navbar navbar-light bg-faded">
         <a class="navbar-brand" href="#">Contact List</a>
-        <ul class="nav navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="index.jsp">Main<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="listItems.jsp">Contact List</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="addForm.jsp">Create new contact</a>
-            </li>
-        </ul>
+
     </nav></header>
-    <div>
-        <ul class="list-group">
-            <li class="list-group-item">Номер лабораторной: Лабораторная работа №3</li>
-            <li class="list-group-item">ФИО: Лопатников Василий Андреевич</li>
-            <li class="list-group-item">Группа: ЭМИС - 14</li>
-        </ul>
+
+    <form method="post" action="index.jsp">
+        <h1>Sign In</h1>
+        <div class="form-group">
+            <label for="exampleInputEmail1" class="col-xs-2 col-form-label">Login:</label>
+            <div class="col-xs-10">
+                <input class="form-control" type="text" name="login">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1" class="col-xs-2 col-form-label">Password:</label>
+            <div class="col-xs-10">
+                <input class="form-control" type="text" name="password">
+            </div>
+        </div>
+        <td>
+            <button type="Submit" class="btn btn-success" value="Update">Update</button></td>
+        <td><a href="index.jsp">
+            <button type="button" class="btn btn-danger">Cancel</button>
+        </a></td>
+    </form>
+    <div class="<%=success%>" role = "alert" >
+        <strong > </strong > <%=successText%>
     </div>
 </div>
 </body>
-</html>
+</body>

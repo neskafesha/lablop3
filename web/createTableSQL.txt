@@ -7,3 +7,11 @@ DateBirth DATE NOT NULL,
 Email VARCHAR(30) NOT NULL,
 Phone VARCHAR (11) NOT NULL,
 PRIMARY KEY (id))
+
+CREATE TABLE users (
+id int AUTO_INCREMENT NOT NULL,
+login VARCHAR(20) NOT NULL,
+password VARCHAR(20) NOT NULL,
+PRIMARY KEY (id))
+
+insert into users values(0,'Vasya', '123456789')
