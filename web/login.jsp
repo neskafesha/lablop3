@@ -24,11 +24,7 @@
             </div>
         </div>
         <br><br>
-        <td>
-            <button type="Submit" class="btn btn-success" value="Update">Update</button></td>
-        <td><a href="index.jsp">
-            <button type="button" class="btn btn-danger">Cancel</button>
-        </a></td>
+        <td><button type="Submit" class="btn btn-success" value="Update">Login</button></td>
     </form>
 
 </div>

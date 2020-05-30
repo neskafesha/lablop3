@@ -34,7 +34,7 @@
         }
         successText = "Bad login or password";
     } catch (Exception e) {
-
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
         successText = "Bad login or password";
         e.printStackTrace();
     }%>
@@ -61,10 +61,7 @@
             </div>
         </div>
         <td>
-            <button type="Submit" class="btn btn-success" value="Update">Update</button></td>
-        <td><a href="index.jsp">
-            <button type="button" class="btn btn-danger">Cancel</button>
-        </a></td>
+            <button type="Submit" class="btn btn-success" value="Update">Login</button></td>
     </form>
     <div class="<%=success%>" role = "alert" >
         <strong > </strong > <%=successText%>
