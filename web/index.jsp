@@ -61,7 +61,7 @@
             </div>
         </div>
         <td>
-            <button type="Submit" class="btn btn-success" value="Update">Login</button></td>
+            <button type="Submit" class="btn btn-success" value="Login">Login</button></td>
     </form>
     <div class="<%=success%>" role = "alert" >
         <strong > </strong > <%=successText%>

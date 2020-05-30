@@ -24,7 +24,7 @@
             </div>
         </div>
         <br><br>
-        <td><button type="Submit" class="btn btn-success" value="Update">Login</button></td>
+        <td><button type="Submit" class="btn btn-success" value="Login">Login</button></td>
     </form>
 
 </div>
