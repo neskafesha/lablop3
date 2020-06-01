@@ -63,10 +63,12 @@
         Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + "?allowPublicKeyRetrieval=true&useSSL=false", dbUser, dbPassword);
         st=connect.createStatement();
         String searchText = request.getParameter("search");
-        if (searchText == null){
-            searchText = "";
+        String[] splitResult;
+        String sqlQuery = "SELECT * FROM itemsList";
+        if (searchText != null){
+            splitResult = searchText.split(" ");
+            sqlQuery = "SELECT * FROM itemsList where LastName like '%" + splitResult[0] + "%'" + " and FirstName like '%" + splitResult[1] + "%'" + " and MiddleName like '%" + splitResult[2] + "%'";
         }
-        String sqlQuery = "SELECT * FROM itemsList where Email like '%" +searchText + "%'";
         rs = st.executeQuery(sqlQuery);
         while(rs.next()){%>
         <thead>
@@ -98,7 +100,7 @@ st.close();
 connect.close();
 }
 catch(Exception e){
-	out.println(e);
+	out.println("Неверный формат поиска - Фамилия Имя Отчество");
 	e.printStackTrace();	
 }
 %>
