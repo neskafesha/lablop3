@@ -15,7 +15,21 @@
 %>
 <body>
 <div class="wrapper container">
-    <header><nav class="navbar navbar-light bg-faded">
+    <header>
+
+        <nav class="navbar navbar-light bg-faded">
+            <form class="navbar-form navbar-right" role="search" method="post" action="listItems.jsp">
+                <div class="input-group">
+                    <input type="text" class="form-control" name = "search" placeholder="Search" />
+                    <span class="input-group-btn">
+
+            <button type="Submit" value="Create" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-search" aria-hidden="true">Ok</span></button>
+                        <td><a href="listItems.jsp">
+                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-search" aria-hidden="true">Clear</span></button>
+                        </a></td>
+        </span>
+                </div>
+            </form>
         <a class="navbar-brand" href="#">Contact List</a>
         <ul class="nav navbar-nav">
             <li class="nav-item">
@@ -48,7 +62,11 @@
         Class.forName("com.mysql.jdbc.Driver");
         Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + "?allowPublicKeyRetrieval=true&useSSL=false", dbUser, dbPassword);
         st=connect.createStatement();
-        String sqlQuery = "SELECT * FROM itemsList";
+        String searchText = request.getParameter("search");
+        if (searchText == null){
+            searchText = "";
+        }
+        String sqlQuery = "SELECT * FROM itemsList where Email like '%" +searchText + "%'";
         rs = st.executeQuery(sqlQuery);
         while(rs.next()){%>
         <thead>
